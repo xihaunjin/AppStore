@@ -12,7 +12,6 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
 @Controller
@@ -21,30 +20,30 @@ import java.util.ArrayList;
 public class CategoryController {
     @Resource
     private ICategoryService categoryService;
+
     @RequestMapping("/list/{page}/{offset}")
-    public void getList(HttpServletRequest request, HttpServletResponse response, @PathVariable("page") String page, @PathVariable("offset") String offset)throws IOException
-    {
+    public void getList(HttpServletRequest request, HttpServletResponse response, @PathVariable("page") String page, @PathVariable("offset") String offset) throws IOException {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
         int _start = Integer.parseInt(page);
         int _offset = Integer.parseInt(offset);
-        _start = _start *_offset;
-        ArrayList<Categories> categoryList = this.categoryService.getCategoryList(_start,_offset);
+        _start = _start * _offset;
+        ArrayList<Categories> categoryList = this.categoryService.getCategoryList(_start, _offset);
         ObjectMapper mapper = new ObjectMapper();
         response.getWriter().write(mapper.writeValueAsString(categoryList));
         response.getWriter().close();
     }
 
-    @RequestMapping("/categorys/{id}/{page}/{offset}")
-    public void getCategoryById(HttpServletRequest request, HttpServletResponse response, @PathVariable("id") String id,@PathVariable("page") String page, @PathVariable("offset") String offset) throws IOException {
+    @RequestMapping("/apps/{id}/{page}/{offset}")
+    public void getCategoryById(HttpServletRequest request, HttpServletResponse response, @PathVariable("id") String id, @PathVariable("page") String page, @PathVariable("offset") String offset) throws IOException {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
-        int _id=Integer.parseInt(id);
+        int _id = Integer.parseInt(id);
         int _page = Integer.parseInt(page);
         int _offset = Integer.parseInt(offset);
-        ArrayList<AppMessage> appMessages=this.
-                categoryService.getAppMessageByCId((_page-1)*_offset,_offset,_id);
-        ObjectMapper mapper=new ObjectMapper();
+        ArrayList<AppMessage> appMessages = this.
+                categoryService.getAppMessageByCId(_page * _offset, _offset, _id);
+        ObjectMapper mapper = new ObjectMapper();
         response.getWriter().write(mapper.writeValueAsString(appMessages));
         response.getWriter().close();
     }

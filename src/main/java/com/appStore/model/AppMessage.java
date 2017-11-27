@@ -8,36 +8,29 @@ public class AppMessage {
     private ArrayList<Category> categories;
 
     public static void ConnectMessages(ArrayList<AppMessage> appMessages,
-                                       ArrayList<App> apps,ArrayList<Category> categories, ArrayList<Image> images)
-    {
-        boolean isStart=false;
-        for (App app:apps) {
-            AppMessage appMessage=new AppMessage();
-            ArrayList<Category> categoriesPre=new ArrayList<Category>();
-            ArrayList<Image> imagesPre=new ArrayList<Image>();
+                                       ArrayList<App> apps, ArrayList<Category> categories, ArrayList<Image> images) {
+        boolean isStart = false;
+        for (App app : apps) {
+            AppMessage appMessage = new AppMessage();
+            ArrayList<Category> categoriesPre = new ArrayList<Category>();
+            ArrayList<Image> imagesPre = new ArrayList<Image>();
             appMessage.setApp(app);
             //找到categories.appId==app.id的起始点,将结点加入appMessages并在categories删除
-            isStart=false;
-            for(Category category:categories)
-            {
-                if(app.getId()==category.getAppId())
-                {
-                    if(!isStart)isStart=true;
+            isStart = false;
+            for (Category category : categories) {
+                if (category.getAppId() == app.getId()) {
+                    if (!isStart) isStart = true;
                     categoriesPre.add(category);
 
-                }
-                else if(isStart&&app.getId()!=category.getAppId())break;
+                } else if (isStart && app.getId() != category.getAppId()) break;
             }
 
-            isStart=false;
-            for(Image image:images)
-            {
-                if(app.getId()==image.getAppId())
-                {
-                    if(!isStart)isStart=true;
+            isStart = false;
+            for (Image image : images) {
+                if (app.getId() == image.getAppId()) {
+                    if (!isStart) isStart = true;
                     imagesPre.add(image);
-                }
-                else if(isStart&&app.getId()!=image.getAppId())break;
+                } else if (isStart && app.getId() != image.getAppId()) break;
             }
 
             appMessage.setImages(imagesPre);
@@ -73,10 +66,6 @@ public class AppMessage {
     public void setCategories(ArrayList<Category> categories) {
         this.categories = categories;
     }
-
-
-
-
 
 
 }

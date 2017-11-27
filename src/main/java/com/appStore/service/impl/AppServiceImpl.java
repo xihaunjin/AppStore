@@ -24,28 +24,26 @@ public class AppServiceImpl implements IAppService {
     @Resource
     private ICategoryDao categoryDao;
 
-    public  AppMessage getAppMessage(int id)
-    {
-        ArrayList<Category> categories= this.categoryDao.getCategory(id);
-        ArrayList<Image> images=this.imageDao.getImage(id);
-        App app =this.appDao.getApp(id);
-        AppMessage appMessage=new AppMessage();
+    public AppMessage getAppMessage(int id) {
+        ArrayList<Category> categories = this.categoryDao.getCategory(id);
+        ArrayList<Image> images = this.imageDao.getImage(id);
+        App app = this.appDao.getApp(id);
+        AppMessage appMessage = new AppMessage();
         appMessage.setApp(app);
         appMessage.setImages(images);
         appMessage.setCategories(categories);
 
         return appMessage;
-
     }
 
 
-    public  ArrayList<AppMessage> getAllAppMessage(int start,int offset)
-    {
-        ArrayList<App> apps=appDao.getAllApp(start,offset);
-        ArrayList<Image> images=imageDao.getAllImage(start,offset);
-        ArrayList<Category> categories=categoryDao.getAllCategory(start,offset);
-        ArrayList<AppMessage> appMessages=new ArrayList<AppMessage>();
-        AppMessage.ConnectMessages(appMessages,apps,categories,images);
+    public ArrayList<AppMessage> getAllAppMessage(int start, int offset) {
+        ArrayList<App> apps = appDao.getAllApp(start, offset);
+        ArrayList<Image> images = imageDao.getAllImage(start, offset);
+        ArrayList<Category> categories = categoryDao.getAllCategory(start, offset);
+        ArrayList<AppMessage> appMessages = new ArrayList<AppMessage>();
+        AppMessage.ConnectMessages(appMessages, apps, categories, images);
+
         return appMessages;
     }
 

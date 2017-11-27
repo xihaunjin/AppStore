@@ -7,5 +7,6 @@ import java.util.ArrayList;
 
 public interface ICategoryService {
     ArrayList<Categories> getCategoryList(int start, int offset);
-    ArrayList<AppMessage> getAppMessageByCId(int start,int offset,int id);
+
+    ArrayList<AppMessage> getAppMessageByCId(int start, int offset, int id);
 }

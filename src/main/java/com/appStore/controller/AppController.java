@@ -22,22 +22,20 @@ public class AppController {
 
     @RequestMapping("/list/{page}/{offset}")
     public void getAppList(HttpServletRequest request, HttpServletResponse response
-            ,@PathVariable("page") String page,@PathVariable("offset") String offset)throws IOException
-    {
+            , @PathVariable("page") String page, @PathVariable("offset") String offset) throws IOException {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
-        int _start=Integer.parseInt(page);
-        int _offset=Integer.parseInt(offset);
+        int _start = Integer.parseInt(page);
+        int _offset = Integer.parseInt(offset);
         _start = _start * _offset;
-        ArrayList<AppMessage> appMessages=this.appService.getAllAppMessage(_start,_offset);
-        ObjectMapper mapper=new ObjectMapper();
+        ArrayList<AppMessage> appMessages = this.appService.getAllAppMessage(_start, _offset);
+        ObjectMapper mapper = new ObjectMapper();
         response.getWriter().write(mapper.writeValueAsString(appMessages));
         response.getWriter().close();
     }
 
     @RequestMapping("/info/{id}")
-    public void getAppInfo(HttpServletRequest request, HttpServletResponse response, @PathVariable("id") String id)throws IOException
-    {
+    public void getAppInfo(HttpServletRequest request, HttpServletResponse response, @PathVariable("id") String id) throws IOException {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
         int Id = Integer.parseInt(id);

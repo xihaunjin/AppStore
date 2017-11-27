@@ -23,7 +23,6 @@ public class Categories {
     }
 
 
-
     public int getCategoryId() {
         return id;
     }

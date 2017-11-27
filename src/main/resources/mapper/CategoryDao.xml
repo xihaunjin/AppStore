@@ -5,31 +5,59 @@
 <mapper namespace="com.appStore.dao.ICategoryDao">
 
     <select id="getCategory" resultType="Category" parameterType="int">
-        select categoryId,appId,name,icon,brief from app_category
-         left join category on app_category.categoryId=category.id
-         where app_category.appId=#{id};
+        SELECT
+            categoryId,
+            appId,
+            name,
+            icon,
+            brief
+        FROM app_category
+            LEFT JOIN category ON app_category.categoryId = category.id
+        WHERE app_category.appId = #{id};
     </select>
 
     <select id="getAllCategory" resultType="Category" parameterType="int">
-        select categoryId,appId,name,icon,brief
-        from app_category left join category on app_category.categoryId=category.id
-        where exists (select * from
-            (select id from apps order by updateTime desc limit #{start},#{offset} ) as c
-        where appId=c.id)
-        order by appId desc;
+        SELECT
+            categoryId,
+            appId,
+            name,
+            icon,
+            brief
+        FROM app_category
+            LEFT JOIN category ON app_category.categoryId = category.id
+        WHERE exists(SELECT *
+                     FROM
+                         (SELECT id
+                          FROM apps
+                          ORDER BY updateTime DESC
+                          LIMIT #{start}, #{offset}) AS c
+                     WHERE appId = c.id)
+        ORDER BY appId DESC;
     </select>
 
     <select id="getAllCategoryByCId" resultType="Category" parameterType="int">
-        select  a.categoryId,a.appId,c.name,c.icon,c.brief
-        from app_category as a left join category as c on a.categoryId=c.id
-        where exists(select * from
-            (select distinct apps.id from apps left join app_category on apps.id=app_category.appId
-         where app_category.categoryId=#{id} order by updateTime desc limit #{start},#{offset} ) as c
-        where appId=c.id)
-        order by appId desc
+        SELECT
+            a.categoryId,
+            a.appId,
+            c.name,
+            c.icon,
+            c.brief
+        FROM app_category AS a LEFT JOIN category AS c ON a.categoryId = c.id
+        WHERE exists(SELECT *
+                     FROM
+                         (SELECT DISTINCT apps.id
+                          FROM apps
+                              LEFT JOIN app_category ON apps.id = app_category.appId
+                          WHERE app_category.categoryId = #{id}
+                          ORDER BY updateTime DESC
+                          LIMIT #{start}, #{offset}) AS c
+                     WHERE appId = c.id)
+        ORDER BY appId DESC
     </select>
 
     <select id="getCategoryList" resultType="Categories" parameterType="int">
-        select * from category LIMIT #{start},#{offset};
+        SELECT *
+        FROM category
+        LIMIT #{start}, #{offset};
     </select>
 </mapper>

@@ -5,19 +5,33 @@
 <mapper namespace="com.appStore.dao.IAppDao">
 
     <select id="getApp" resultType="App" parameterType="int">
-        SELECT * FROM apps WHERE id = #{id}
+        SELECT *
+        FROM apps
+        WHERE id = #{id}
     </select>
 
     <select id="getAllApp" resultType="App" parameterType="int">
-        select * from apps
-        order by updateTime desc limit #{start},#{offset};
+        SELECT *
+        FROM apps
+        ORDER BY updateTime DESC
+        LIMIT #{start}, #{offset};
     </select>
 
     <select id="getAllAppByCId" resultType="App" parameterType="int">
-        select distinct apps.id,apps.name,apps.icon,apps.version,apps.createTime,
-            apps.updateTime,apps.size,apps.brief,apps.description
-        from apps left join app_category on apps.id=app_category.appId
-        where app_category.categoryId=#{id}
-        order by updateTime desc limit #{start},#{offset};
+        SELECT DISTINCT
+            apps.id,
+            apps.name,
+            apps.icon,
+            apps.version,
+            apps.createTime,
+            apps.updateTime,
+            apps.size,
+            apps.brief,
+            apps.description
+        FROM apps
+            LEFT JOIN app_category ON apps.id = app_category.appId
+        WHERE app_category.categoryId = #{id}
+        ORDER BY updateTime DESC
+        LIMIT #{start}, #{offset};
     </select>
 </mapper>

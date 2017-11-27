@@ -23,7 +23,6 @@ public class Category {
         this.brief = brief;
     }
 
-    
 
     public int getCategoryId() {
         return categoryId;
