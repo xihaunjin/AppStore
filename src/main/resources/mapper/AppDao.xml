@@ -12,4 +12,12 @@
         select * from apps
         order by updateTime desc limit #{start},#{offset};
     </select>
+
+    <select id="getAllAppByCId" resultType="App" parameterType="int">
+        select distinct apps.id,apps.name,apps.icon,apps.version,apps.createTime,
+            apps.updateTime,apps.size,apps.brief,apps.description
+        from apps left join app_category on apps.id=app_category.appId
+        where app_category.categoryId=#{id}
+        order by updateTime desc limit #{start},#{offset};
+    </select>
 </mapper>

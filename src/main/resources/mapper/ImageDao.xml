@@ -16,4 +16,12 @@
         order by appId desc;
     </select>
 
+    <select id="getAllImageByCId" resultType="Image" parameterType="int">
+        select * from image where exists
+        (select * from
+          (select distinct apps.id from apps left join app_category on apps.id=app_category.appId
+          where app_category.categoryId=#{id} order by updateTime desc limit #{start},#{offset} ) as c
+        where image.appId=c.id)
+        order by appId desc;
+    </select>
 </mapper>

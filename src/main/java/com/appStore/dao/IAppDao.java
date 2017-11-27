@@ -8,4 +8,6 @@ import java.util.ArrayList;
 public interface IAppDao {
     App getApp(int id);
     ArrayList<App> getAllApp(@Param("start") int start, @Param("offset") int offset);
+    ArrayList<App> getAllAppByCId(@Param("start") int start,
+                             @Param("offset") int offset,@Param("id") int id);
 }

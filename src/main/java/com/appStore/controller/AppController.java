@@ -32,7 +32,7 @@ public class AppController {
         ArrayList<AppMessage> appMessages=this.appService.getAllAppMessage(_start,_offset);
         ObjectMapper mapper=new ObjectMapper();
         response.getWriter().write(mapper.writeValueAsString(appMessages));
-
+        response.getWriter().close();
     }
 
     @RequestMapping("/info/{id}")
