@@ -35,7 +35,7 @@ public class CategoryController {
         response.getWriter().close();
     }
 
-    @RequestMapping("/categorys/{id}/{page}/{offset}")
+    @RequestMapping("/apps/{id}/{page}/{offset}")
     public void getCategoryById(HttpServletRequest request, HttpServletResponse response, @PathVariable("id") String id,@PathVariable("page") String page, @PathVariable("offset") String offset) throws IOException {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
@@ -43,7 +43,7 @@ public class CategoryController {
         int _page = Integer.parseInt(page);
         int _offset = Integer.parseInt(offset);
         ArrayList<AppMessage> appMessages=this.
-                categoryService.getAppMessageByCId((_page-1)*_offset,_offset,_id);
+                categoryService.getAppMessageByCId(_page*_offset,_offset,_id);
         ObjectMapper mapper=new ObjectMapper();
         response.getWriter().write(mapper.writeValueAsString(appMessages));
         response.getWriter().close();
