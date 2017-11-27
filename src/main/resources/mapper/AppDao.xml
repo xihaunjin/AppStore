@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.appStore.dao.IAppDao">
+
+    <select id="getApp" resultType="App" parameterType="int">
+        SELECT * FROM apps WHERE id = #{id}
+    </select>
+
+    <select id="getAllApp" resultType="App" parameterType="int">
+        select * from apps
+        order by updateTime desc limit #{start},#{offset};
+    </select>
+</mapper>

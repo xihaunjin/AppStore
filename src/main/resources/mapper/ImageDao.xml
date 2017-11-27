@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.appStore.dao.IImageDao">
+
+    <select id="getImage" resultType="Image" parameterType="int">
+        SELECT * FROM image WHERE appId = #{id} ;
+    </select>
+
+    <select id="getAllImage" resultType="Image" parameterType="int">
+        select * from image where exists
+        (select * from
+                    (select id from apps order by updateTime desc limit #{start},#{offset} ) as c
+                where appId=c.id)
+        order by appId desc;
+    </select>
+
+</mapper>

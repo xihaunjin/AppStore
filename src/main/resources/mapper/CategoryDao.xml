@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.appStore.dao.ICategoryDao">
+
+    <select id="getCategory" resultType="Category" parameterType="int">
+        select categoryId,appId,name,icon,brief from app_category
+         left join category on app_category.categoryId=category.id
+         where app_category.appId=#{id};
+    </select>
+
+    <select id="getAllCategory" resultType="Category" parameterType="int">
+        select categoryId,appId,name,icon,brief
+        from app_category left join category on app_category.categoryId=category.id
+        where exists (select * from
+            (select id from apps order by updateTime desc limit #{start},#{offset} ) as c
+        where appId=c.id)
+        order by appId desc;
+    </select>
+
+    <select id="getCategoryList" resultType="Categories" parameterType="int">
+        select * from category LIMIT #{start},#{offset};
+    </select>
+</mapper>
