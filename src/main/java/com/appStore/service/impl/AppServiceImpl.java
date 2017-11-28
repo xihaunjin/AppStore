@@ -22,21 +22,14 @@ public class AppServiceImpl implements IAppService {
     private ICategoryDao categoryDao;
 
     public AppMessage getAppMessage(int id) {
-        MyException exception = new MyException();
-        try {
-            ArrayList<Category> categories = this.categoryDao.getCategory(id);
-            ArrayList<Image> images = this.imageDao.getImage(id);
-            App app = this.appDao.getApp(id);
-            AppMessage appMessage = new AppMessage();
-            appMessage.setApp(app);
-            appMessage.setImages(images);
-            appMessage.setCategories(categories);
-            return appMessage;
-        }catch (Exception ex){
-            exception.setCode("1");
-            exception.setStatus("fail");
-            exception.setMessage("数据库错误");
-        }
+        ArrayList<Category> categories = this.categoryDao.getCategory(id);
+        ArrayList<Image> images = this.imageDao.getImage(id);
+        App app = this.appDao.getApp(id);
+        AppMessage appMessage = new AppMessage();
+        appMessage.setApp(app);
+        appMessage.setImages(images);
+        appMessage.setCategories(categories);
+        return appMessage;
     }
 
 
