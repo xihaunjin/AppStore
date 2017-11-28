@@ -7,6 +7,8 @@ public class AppMessage {
     private ArrayList<Image> images;
     private ArrayList<Category> categories;
 
+    private MyException exception;
+
     public static void ConnectMessages(ArrayList<AppMessage> appMessages,
                                        ArrayList<App> apps, ArrayList<Category> categories, ArrayList<Image> images) {
         boolean isStart = false;
@@ -65,6 +67,15 @@ public class AppMessage {
 
     public void setCategories(ArrayList<Category> categories) {
         this.categories = categories;
+    }
+
+
+    public MyException getException() {
+        return exception;
+    }
+
+    public void setException(MyException exception) {
+        this.exception = exception;
     }
 
 

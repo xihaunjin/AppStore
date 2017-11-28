@@ -30,7 +30,7 @@
         WHERE exists
         (SELECT *
          FROM
-             (SELECT DISTINCT apps.id
+             (SELECT DISTINCT apps.id,apps.updateTime
               FROM apps
                   LEFT JOIN app_category ON apps.id = app_category.appId
               WHERE app_category.categoryId = #{id}

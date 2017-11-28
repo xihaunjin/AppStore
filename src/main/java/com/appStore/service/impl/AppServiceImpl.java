@@ -1,14 +1,11 @@
 package com.appStore.service.impl;
 
 
-import com.appStore.model.App;
-import com.appStore.model.AppMessage;
+import com.appStore.model.*;
 import com.appStore.dao.IAppDao;
 import com.appStore.dao.ICategoryDao;
 import com.appStore.dao.IImageDao;
 
-import com.appStore.model.Category;
-import com.appStore.model.Image;
 import com.appStore.service.IAppService;
 import org.springframework.stereotype.Service;
 
@@ -25,15 +22,21 @@ public class AppServiceImpl implements IAppService {
     private ICategoryDao categoryDao;
 
     public AppMessage getAppMessage(int id) {
-        ArrayList<Category> categories = this.categoryDao.getCategory(id);
-        ArrayList<Image> images = this.imageDao.getImage(id);
-        App app = this.appDao.getApp(id);
-        AppMessage appMessage = new AppMessage();
-        appMessage.setApp(app);
-        appMessage.setImages(images);
-        appMessage.setCategories(categories);
-
-        return appMessage;
+        MyException exception = new MyException();
+        try {
+            ArrayList<Category> categories = this.categoryDao.getCategory(id);
+            ArrayList<Image> images = this.imageDao.getImage(id);
+            App app = this.appDao.getApp(id);
+            AppMessage appMessage = new AppMessage();
+            appMessage.setApp(app);
+            appMessage.setImages(images);
+            appMessage.setCategories(categories);
+            return appMessage;
+        }catch (Exception ex){
+            exception.setCode("1");
+            exception.setStatus("fail");
+            exception.setMessage("数据库错误");
+        }
     }
 
 
